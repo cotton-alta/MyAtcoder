@@ -25,17 +25,31 @@ func nextInt() int {
 	return num
 }
 
-// 読み込みをfloat型へキャスト
-func nextFloat() float64 {
-	sc.Scan()
-	num, err := strconv.ParseFloat(sc.Text(), 64)
-	if err != nil {
-		panic(err)
-	}
-	return num
-}
-
 func main() {
 	// scannerの挙動を改行区切り → 空白区切りに変更
 	sc.Split(bufio.ScanWords)
+	a, v := nextInt(), nextInt()
+	b, w := nextInt(), nextInt()
+	t := nextInt()
+
+	dis := a - b
+	spd := w - v
+
+	if dis < 0 {
+		dis = dis * -1
+	} else if dis == 0 {
+		fmt.Println("YES")
+		return
+	}
+	
+	if spd >= 0 {
+		fmt.Println("NO")
+	} else {
+		spd = spd * -1
+		if dis <= spd * t {
+			fmt.Println("YES")
+		} else {
+			fmt.Println("NO")		
+		}
+	}
 }
