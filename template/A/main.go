@@ -4,10 +4,49 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"reflect"
 	"strconv"
 )
 
 var sc = bufio.NewScanner(os.Stdin)
+
+// スライス内に指定した要素があるか判定
+// 第1引数 : 要素, 第2要素 : スライス
+// return : result, err
+func contains(target interface{}, list interface{}) (bool, error) {
+	switch list.(type) {
+		case []int:
+			revert := list.([]int)
+			for _, r := range revert {
+				if target == r {
+					return true, nil
+				}
+			}
+			return false, nil
+			
+		case []uint64:
+			revert := list.([]uint64)
+			for _, r := range revert {
+				if target == r {
+					return true, nil
+				}
+			}
+			return false, nil
+			
+		case []string:
+			revert := list.([]string)
+			for _, r := range revert {
+				if target == r {
+					return true, nil
+				}
+			}
+			return false, nil
+		default:
+			return false, fmt.Errorf("%v is an unsupported type", reflect.TypeOf(list))
+	}
+
+	return false, fmt.Errorf("processing failed")
+}
 
 // 1行読み込み
 func nextLine() string {
